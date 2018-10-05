@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 import AddModal from './AddModal';
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import rootReducer from '../reducers/index';
 import ListUsers from './ListUsers';
+import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(thunk)
+);
 
 export default class App extends Component {
 

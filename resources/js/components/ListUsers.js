@@ -12,39 +12,14 @@ class ListUsers extends Component{
     }
 
     componentDidMount(){
-        axios.get('/api').then(response => {
-            this.props.allUsers(response.data.data)
-        });
+        this.props.allUsers();
     }
 
-    handleDeleteUser(id){
-        // console.log(id);
-        axios.post(`/api/${id}`).then(response => {
-            // console.log(response)
-            this.props.deleteUser(id)
-        }).catch(error => {
-            console.log(error);
-        })
+    handleDeleteUser(user){
+        this.props.deleteUser(user);
     }
 
     render() {
-        console.log(this.props.users);
-        let listUsers = '';
-        if (this.props.users.length > 0) {
-            listUsers = this.props.users.map((user, index) =>
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>
-                        <Button color='warning' className='mr-3'>Edit</Button>
-                        <Button color='danger' onClick={() => {
-                            this.handleDeleteUser(user.id)
-                        }}>Delete</Button>
-                    </td>
-                </tr>
-            )
-        }
 
         return (
             <table className="table">
@@ -57,7 +32,21 @@ class ListUsers extends Component{
                 </tr>
                 </thead>
                 <tbody>
-                {listUsers}
+                {
+                    this.props.users.map((user, index) =>
+                        <tr key={user.id}>
+                            <td>{user.id}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>
+                                <Button color='warning' className='mr-3'>Edit</Button>
+                                <Button color='danger' onClick={() => {
+                                    this.handleDeleteUser(user)
+                                }}>Delete</Button>
+                            </td>
+                        </tr>
+                    )
+                }
                 </tbody>
             </table>
         );
@@ -66,20 +55,20 @@ class ListUsers extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        users: state.usersReducer
+        users: state.usersReducer.users
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        allUsers: (payload) => {
-            dispatch(actions.allUsers(payload))
+        allUsers: () => {
+            dispatch(actions.fetchAllUsersApi())
         },
         showAddModal: () => {
             dispatch(actions.showAddModal())
         },
-        deleteUser: (id) => {
-            dispatch(actions.deleteUser(id))
+        deleteUser: (user) => {
+            dispatch(actions.deleteUserApi(user))
         },
     }
 }

@@ -1,33 +1,26 @@
 import * as actionTypes from "../actions/actionTypes";
 
-// const initialState = {
-//     modalAdd: false,
-//     id: ''
-// };
-const initialState = [];
+const initialState = {
+    modalAdd: false,
+    users: []
+}
 
 function usersReducer(state = initialState, action) {
     switch (action.type) {
         case actionTypes.GET_ALL_USERS:
-            state = action.payload;
-
-            return [...state];
+            return {...state, users: action.users};
 
         case actionTypes.OPEN_ADD_MODAL:
             console.log(action)
-            return {
-                modalAdd: true
-            };
+            return {...state, modalAdd: true}
 
         case actionTypes.CLOSE_ADD_MODAL:
             console.log(action)
-            return {
-                modalAdd: false
-            };
+            return {...state, modalAdd: false}
 
         case actionTypes.DELETE_USER:
-            console.log(state)
-            return state.users.filter((user, i) => i !== action.id);
+            const users = state.users.filter((user, i) => user.id !== action.user.id);
+            return {...state, users: users};
 
         default:
             return state;
