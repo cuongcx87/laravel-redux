@@ -20,7 +20,7 @@ export default class App extends Component {
         );
     }
 }
-
+// console.log(store.getState())
 ReactDOM.render(
     <Provider store={store}>
         <App />

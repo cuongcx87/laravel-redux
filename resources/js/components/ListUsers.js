@@ -3,29 +3,24 @@ import { Button } from 'reactstrap';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from "../actions/index";
+import usersReducer from "../reducers/usersReducer";
+import {listUsers} from "../actions";
 
 class ListUsers extends Component{
     constructor(){
         super();
-        this.state = {
-            users: []
-        }
     }
 
-    componentWillMount(){
-        axios.get('/api/').then(response => {
-            this.setState({
-               users: response.data.data
-            })
-        }).catch(error => {
-            console.log(error);
+    componentDidMount(){
+        axios.get('/api').then(response => {
+            this.props.allUsers(response.data.data)
         });
     }
 
     handleDeleteUser(id){
         // console.log(id);
         axios.post(`/api/${id}`).then(response => {
-            console.log(response)
+            // console.log(response)
             this.props.deleteUser(id)
         }).catch(error => {
             console.log(error);
@@ -33,7 +28,23 @@ class ListUsers extends Component{
     }
 
     render() {
-        const {users} = this.state;
+        console.log(this.props.users);
+        let listUsers = '';
+        if (this.props.users.length > 0) {
+            listUsers = this.props.users.map((user, index) =>
+                <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                        <Button color='warning' className='mr-3'>Edit</Button>
+                        <Button color='danger' onClick={() => {
+                            this.handleDeleteUser(user.id)
+                        }}>Delete</Button>
+                    </td>
+                </tr>
+            )
+        }
 
         return (
             <table className="table">
@@ -46,38 +57,30 @@ class ListUsers extends Component{
                 </tr>
                 </thead>
                 <tbody>
-                    {users.map((user, index) => (
-                    <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>
-                    <Button color='warning' className='mr-3'>Edit</Button>
-                    <Button color='danger' onClick={() => {this.handleDeleteUser(user.id)}}>Delete</Button>
-
-                    </td>
-                    </tr>
-                    ))}
+                {listUsers}
                 </tbody>
             </table>
         );
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
-        users: state.users
+        users: state.usersReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        allUsers: (payload) => {
+            dispatch(actions.allUsers(payload))
+        },
         showAddModal: () => {
             dispatch(actions.showAddModal())
         },
         deleteUser: (id) => {
             dispatch(actions.deleteUser(id))
-        }
+        },
     }
 }
 

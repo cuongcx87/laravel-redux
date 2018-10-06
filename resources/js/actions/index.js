@@ -1,8 +1,9 @@
 import * as actionTypes from "../actions/actionTypes";
 
-export function allUser(user) {
+export function allUsers(payload) {
     return {
-        type: actionTypes.ALL_USER,
+        type: actionTypes.GET_ALL_USERS,
+        payload : payload
     }
 }
 
@@ -29,5 +30,14 @@ export function deleteUser(id) {
     return {
         type: actionTypes.DELETE_USER,
         id
+    }
+}
+
+export function listUsers() {
+    var list = axios.get('/api');
+
+    return {
+        type: actionTypes.LIST_USERS,
+        payload: list
     }
 }
