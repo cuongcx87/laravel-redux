@@ -32,14 +32,6 @@ export function deleteUser(user) {
     }
 }
 
-export function onChangeUser(user) {
-    console.log(user);
-    return {
-        type: actionTypes.ONCHANGE_FORM_USER,
-        user
-    }
-}
-
 export const addUserApi = (user) => {
     return (dispatch) => {
         axios.post('/api', user).then(response => {
@@ -60,7 +52,6 @@ export function addUser(user) {
 }
 
 export const editUserApi = (user) => {
-    console.log(user);
     return (dispatch) => {
         axios.post(`/api/${user.id}/edit`, user).then(response => {
             dispatch(addUser(response.data)),
