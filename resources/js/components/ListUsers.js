@@ -39,10 +39,17 @@ class ListUsers extends Component{
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>
-                                <Button color='warning' className='mr-3'>Edit</Button>
-                                <Button color='danger' onClick={() => {
-                                    this.handleDeleteUser(user)
-                                }}>Delete</Button>
+                                <Button onClick={() => {this.props.showAddModal(user)}}
+                                        color='warning'
+                                        className='mr-3'>
+                                    Edit
+                                </Button>
+                                <Button color='danger'
+                                        onClick={() => {
+                                            this.handleDeleteUser(user)
+                                        }}>
+                                    Delete
+                                </Button>
                             </td>
                         </tr>
                     )
@@ -64,8 +71,8 @@ const mapDispatchToProps = (dispatch) => {
         allUsers: () => {
             dispatch(actions.fetchAllUsersApi())
         },
-        showAddModal: () => {
-            dispatch(actions.showAddModal())
+        showAddModal: (user) => {
+            dispatch(actions.showAddModal(user))
         },
         deleteUser: (user) => {
             dispatch(actions.deleteUserApi(user))

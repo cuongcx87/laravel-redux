@@ -2,7 +2,13 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     modalAdd: false,
-    users: []
+    users: [],
+    user : {
+        email: '',
+        name: '',
+        password: '',
+        id: ''
+    }
 }
 
 function usersReducer(state = initialState, action) {
@@ -11,16 +17,20 @@ function usersReducer(state = initialState, action) {
             return {...state, users: action.users};
 
         case actionTypes.OPEN_ADD_MODAL:
-            console.log(action)
-            return {...state, modalAdd: true}
+            var user = action.user
+            return {...state, modalAdd: true, user}
 
         case actionTypes.CLOSE_ADD_MODAL:
-            console.log(action)
             return {...state, modalAdd: false}
 
         case actionTypes.DELETE_USER:
-            const users = state.users.filter((user, i) => user.id !== action.user.id);
-            return {...state, users: users};
+            return {...state};
+
+        case actionTypes.ADD_USER:
+            return {...state};
+
+        case actionTypes.EDIT_USER:
+            return {...state};
 
         default:
             return state;

@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::paginate(10);
+        $users = User::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json($user);
+        return response()->json($users);
     }
 
     /**
@@ -44,6 +44,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
 
         $user->save();
+
 
         return response()->json($user);
     }
@@ -77,9 +78,15 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+
+        return response()->json($user);
     }
 
     /**
