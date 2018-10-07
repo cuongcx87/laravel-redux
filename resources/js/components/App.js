@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
 import AddModal from './AddModal';
 import { Provider } from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from '../reducers/index';
 import ListUsers from './ListUsers';
+import SearchForm from './SearchForm';
 import thunk from 'redux-thunk';
 
 const store = createStore(
@@ -19,13 +19,15 @@ export default class App extends Component {
     render() {
         return (
             <div className="container">
+                <h2 className='mt-4'>Users Manager</h2>
+                <SearchForm />
                 <ListUsers />
                 <AddModal />
             </div>
         );
     }
 }
-// console.log(store.getState())
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

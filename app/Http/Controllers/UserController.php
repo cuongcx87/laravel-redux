@@ -102,4 +102,14 @@ class UserController extends Controller
 
         return response()->json($user);
     }
+
+    public function search($keyword)
+    {
+        $users = User::where('name', 'like', '%' . $keyword . '%')->
+            orWhere('email', 'like', '%' . $keyword . '%')->
+            orderBy('id', 'DESC')->
+            paginate(10);
+
+        return response()->json($users);
+    }
 }

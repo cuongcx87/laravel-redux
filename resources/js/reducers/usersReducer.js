@@ -2,13 +2,16 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     modalAdd: false,
-    users: [],
+    users: {
+        data: [],
+        last_page: 0
+    },
     user : {
         email: '',
         name: '',
         password: '',
         id: ''
-    }
+    },
 }
 
 function usersReducer(state = initialState, action) {
@@ -31,6 +34,12 @@ function usersReducer(state = initialState, action) {
 
         case actionTypes.EDIT_USER:
             return {...state};
+
+        case actionTypes.PAGE_CHANGE:
+            return {...state};
+
+        // case actionTypes.SEARCH_FORM:
+        //     return {...state};
 
         default:
             return state;

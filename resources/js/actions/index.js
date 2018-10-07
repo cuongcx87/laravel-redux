@@ -1,12 +1,45 @@
 import * as actionTypes from "../actions/actionTypes";
 
-export const fetchAllUsersApi = () => {
+
+export const changePage = (page) => {
     return (dispatch) => {
-        axios.get('/api').then(response => {
-            dispatch(allUsers(response.data.data))
+        axios.get(`/api?page=${page+1}`).then(response => {
+            dispatch(allUsers(response.data))
         });
     }
 }
+
+export const changePageWithSearch = (key, page) => {
+    return (dispatch) => {
+        axios.get(`/api/user/search/${key}?page=${page+1}`).then(response => {
+            dispatch(allUsers(response.data))
+        });
+    }
+}
+
+export const searchFormApi = (key) => {
+    return (dispatch) => {
+        axios.get(`/api/user/search/${key}`).then(response => {
+            dispatch(allUsers(response.data))
+        });
+    }
+}
+
+export function searchForm(key) {
+    return {
+        type: actionTypes.SEARCH_FORM,
+        key
+    }
+}
+
+export const fetchAllUsersApi = (key) => {
+    return (dispatch) => {
+        axios.get('/api').then(response => {
+            dispatch(allUsers(response.data))
+        });
+    }
+}
+
 export function allUsers(users) {
     return {
         type: actionTypes.GET_ALL_USERS,
@@ -16,7 +49,7 @@ export function allUsers(users) {
 
 export const deleteUserApi = (user) => {
     return (dispatch) => {
-        axios.post(`/api/${user.id}`).then(response => {
+        axios.delete(`/api/${user.id}`).then(response => {
             dispatch(deleteUser(user)),
             dispatch(fetchAllUsersApi())
         }).catch(error => {
@@ -53,7 +86,7 @@ export function addUser(user) {
 
 export const editUserApi = (user) => {
     return (dispatch) => {
-        axios.post(`/api/${user.id}/edit`, user).then(response => {
+        axios.put(`/api/${user.id}/edit`, user).then(response => {
             dispatch(addUser(response.data)),
             dispatch(fetchAllUsersApi()),
             dispatch(hideAddModal())
