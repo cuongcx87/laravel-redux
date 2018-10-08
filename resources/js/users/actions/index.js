@@ -1,5 +1,36 @@
-import * as actionTypes from "../actions/actionTypes";
+import * as actionTypes from "./actionTypes";
 
+
+export const addToCart = (user, qty) => {
+    return {
+        type: actionTypes.ADD_TO_CART,
+        user,
+        qty
+    }
+}
+
+export const increItemToCart = (user, qty) => {
+    return {
+        type: actionTypes.INCRE_ITEM_TO_CART,
+        user,
+        qty
+    }
+}
+
+export const deleteItem = (user) => {
+    return {
+        type: actionTypes.DELETE_ITEM,
+        user
+    }
+}
+
+export const decreItemToCart = (user, qty) => {
+    return {
+        type: actionTypes.DECRE_ITEM_TO_CART,
+        user,
+        qty
+    }
+}
 
 export const changePage = (page) => {
     return (dispatch) => {

@@ -38,8 +38,8 @@ function usersReducer(state = initialState, action) {
         case actionTypes.PAGE_CHANGE:
             return {...state};
 
-        // case actionTypes.SEARCH_FORM:
-        //     return {...state};
+        case actionTypes.SEARCH_FORM:
+            return {...state};
 
         default:
             return state;

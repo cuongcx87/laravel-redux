@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {connect} from 'react-redux';
 import {Field} from "redux-form";
 import {bindActionCreators} from "redux";
-import * as actions from "../actions";
+import * as actions from "../actions/index";
 import AddForm from './AddForm'
 
 class AddModal extends Component{

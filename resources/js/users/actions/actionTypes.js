@@ -7,3 +7,7 @@ export const EDIT_USER = 'EDIT_USER';
 export const LIST_USERS = 'LIST_USERS';
 export const PAGE_CHANGE = 'PAGE_CHANGE';
 export const SEARCH_FORM = 'SEARCH_FORM';
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const INCRE_ITEM_TO_CART = 'INCRE_ITEM_TO_CART';
+export const DECRE_ITEM_TO_CART = 'DECRE_ITEM_TO_CART';
+export const DELETE_ITEM = 'DELETE_ITEM';
