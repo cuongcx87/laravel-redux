@@ -6,7 +6,7 @@ import * as actions from "../actions/index";
 import {listUsers} from "../actions/index";
 import ReactPaginate from 'react-paginate';
 import { Field, reduxForm } from 'redux-form'
-import cartReducer from "../reducers/cartReducer";
+import PropTypes from 'prop-types'
 
 class ListUsers extends Component{
     constructor(){
@@ -42,8 +42,8 @@ class ListUsers extends Component{
         console.log(e.target.value);
     }
 
-    handleAddToCart(user, qty){
-        this.props.addToCart(user, qty);
+    handleAddToCart(user){
+        this.props.addToCart(user,1);
     }
 
     handleDecre(item, qty){
@@ -58,8 +58,16 @@ class ListUsers extends Component{
         this.props.deleteItem(item);
     }
 
+    componentWillReceiveProps(props) {
+        var {cart} = this.props;
+        // console.log(cart)
+    }
+
     showCart(cart) {
+
         var result = null;
+        var {cart} = this.props;
+        // console.log(cart)
         if(cart.length > 0) {
             result = (
                 <table className="table">
@@ -110,10 +118,10 @@ class ListUsers extends Component{
     }
 
     render() {
-        var {cart} = this.props;
+
         return (
             <div className="row">
-                {this.showCart(this.props.cart)}
+                {this.showCart()}
                 <table className="table">
                     <thead>
                     <tr>
@@ -153,7 +161,7 @@ class ListUsers extends Component{
                                     </Button>
                                     <Button color='primary'
                                             onClick={() => {
-                                                this.handleAddToCart(user, 1)
+                                                this.handleAddToCart(user)
                                             }}>
                                         <span className='fa fa-shopping-cart'></span>
                                     </Button>
@@ -188,6 +196,7 @@ class ListUsers extends Component{
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.cartReducer);
     return {
         users: state.usersReducer.users,
         cart: state.cartReducer,
@@ -212,8 +221,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteUser: (user) => {
             dispatch(actions.deleteUserApi(user))
         },
-        addToCart: (user, qty) => {
-            dispatch(actions.addToCart(user, qty))
+        addToCart: (user) => {
+            dispatch(actions.addToCart(user, 1))
         },
         increItemToCart: (item, qty) => {
             dispatch(actions.increItemToCart(item, qty))

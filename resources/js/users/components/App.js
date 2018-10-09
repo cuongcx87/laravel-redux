@@ -8,6 +8,7 @@ import ListUsers from './ListUsers';
 import SearchForm from './SearchForm';
 import thunk from 'redux-thunk';
 
+const middleware = [ thunk ];
 const store = createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
