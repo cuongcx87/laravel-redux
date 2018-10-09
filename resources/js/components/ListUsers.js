@@ -5,11 +5,13 @@ import { bindActionCreators } from 'redux';
 import * as actions from "../actions/index";
 import {listUsers} from "../actions";
 import ReactPaginate from 'react-paginate';
+import { Field, reduxForm } from 'redux-form'
 
 class ListUsers extends Component{
     constructor(){
         super();
         this.handleChangePage = this.handleChangePage.bind(this)
+        this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
     }
 
     componentDidMount(){
@@ -30,6 +32,11 @@ class ListUsers extends Component{
         }
     }
 
+    onChangeCheckbox(e){
+        console.log(e.target.id);
+        console.log(e.target.value);
+    }
+
     render() {
 
         return (
@@ -37,6 +44,7 @@ class ListUsers extends Component{
                 <table className="table">
                     <thead>
                     <tr>
+                        <th><input type="checkbox"/></th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -47,6 +55,13 @@ class ListUsers extends Component{
                     {
                         this.props.users.data.map((user, index) =>
                             <tr key={user.id}>
+                                <td>
+                                    <Field name={user.email}
+                                           id={user.id}
+                                           component="input"
+                                           onChange={this.onChangeCheckbox}
+                                           type="checkbox"/>
+                                </td>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
@@ -77,7 +92,7 @@ class ListUsers extends Component{
                     marginPagesDisplayed={3}
                     pageRangeDisplayed={2}
                     onPageChange={this.handleChangePage}
-                    containerClassName={"pagination"}
+                    containerClassName={"pagination float-right"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"}
                     pageClassName={"page-item"}
@@ -119,4 +134,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+    form: 'checkItem'
+})(ListUsers))
+// export default connect(mapStateToProps, mapDispatchToProps)(ListUsers);

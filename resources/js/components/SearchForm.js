@@ -12,9 +12,8 @@ class SearchForm extends Component{
     }
 
     onChange(e){
-        e.preventDefault ();
         const key = e.target.value
-        if (key.length > 0) {
+        if (key.length > 2) {
             this.props.searchFormApi(key);
         } else {
             this.props.allUsers();
