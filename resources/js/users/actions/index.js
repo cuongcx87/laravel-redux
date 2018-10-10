@@ -147,5 +147,38 @@ export function hideAddModal() {
     }
 }
 
+export function showLoginModal(user) {
+    return {
+        type: actionTypes.OPEN_LOGIN_FORM,
+        user
+    }
+}
+
+export function closeLoginModal(user) {
+    return {
+        type: actionTypes.CLOSE_LOGIN_FORM,
+        user
+    }
+}
+
+export const loginApi = (user) => {
+    return (dispatch) => {
+        axios.put(`/api/${user.id}/edit`, user).then(response => {
+            dispatch(addUser(response.data)),
+                dispatch(fetchAllUsersApi()),
+                dispatch(hideAddModal())
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+}
+
+export function login(user) {
+    return {
+        type: actionTypes.LOGIN_FORM,
+        user
+    }
+}
+
 
 

@@ -11,3 +11,6 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const INCRE_ITEM_TO_CART = 'INCRE_ITEM_TO_CART';
 export const DECRE_ITEM_TO_CART = 'DECRE_ITEM_TO_CART';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const OPEN_LOGIN_FORM = 'OPEN_LOGIN_FORM';
+export const CLOSE_LOGIN_FORM = 'CLOSE_LOGIN_FORM';
+export const LOGIN_FORM = 'LOGIN_FORM';

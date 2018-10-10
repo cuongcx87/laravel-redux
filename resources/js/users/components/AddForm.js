@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import * as actions from "../actions/index";
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form';
 
 class AddForm extends Component{
     constructor(){
@@ -35,8 +35,7 @@ class AddForm extends Component{
     }
 
     render() {
-        const {modalAdd, user} = this.props;
-        const {model, handleSubmit, submitting, pristine} = this.props;
+        const { handleSubmit, submitting, pristine} = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -70,7 +69,7 @@ const mapStateToProps = state => {
         modalAdd: state.usersReducer.modalAdd,
         user: state.usersReducer.user
     }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -82,7 +81,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.editUserApi(user))
         },
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'userForm'

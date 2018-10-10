@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     modalAdd: false,
+    modalLogin: false,
     users: {
         data: [],
         last_page: 0
@@ -40,6 +41,12 @@ function usersReducer(state = initialState, action) {
 
         case actionTypes.SEARCH_FORM:
             return {...state};
+
+        case actionTypes.OPEN_LOGIN_FORM:
+            return {...state, modalLogin: true}
+
+        case actionTypes.CLOSE_LOGIN_FORM:
+            return {...state, modalLogin: false}
 
         default:
             return state;

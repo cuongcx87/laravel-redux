@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import { Button } from 'reactstrap';
 import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
 import * as actions from "../actions/index";
 import {listUsers} from "../actions/index";
 import ReactPaginate from 'react-paginate';
 import { Field, reduxForm } from 'redux-form'
-import PropTypes from 'prop-types'
 
 
 const price = 500;
@@ -88,7 +86,7 @@ class ListUsers extends Component{
                         cart.map((item, i) => (
                             <tr key={i}>
                                 <td>{i+1}</td>
-                                <td>{item.user.name}</td>
+                                <td>{item.user.id + ': ' + item.user.name}</td>
                                 <td>
                                     <button
                                         className='btn btn-outline-danger mr-1'
@@ -125,14 +123,6 @@ class ListUsers extends Component{
 
         }
         return result;
-    }
-
-    subTotalCart(cart){
-        var {cart} = this.props;
-        let total = 0;
-        cart.map(
-            console.log(cart.qty)
-        )
     }
 
     render() {
