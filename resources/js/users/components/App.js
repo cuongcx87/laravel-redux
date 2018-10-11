@@ -20,7 +20,17 @@ export default class App extends Component {
     render() {
         return (
             <div className="container">
-                <h2 className='mt-4'>Users Manager</h2>
+                <div className="row">
+                    <div className="col-lg-8">
+                        <h2 className='mt-4'>Users Manager</h2>
+                    </div>
+                    <div className="col-lg-4">
+                        <i className="fa fa-shopping-cart"></i>
+                        <button className='btn btn-warning float-right'>
+                            <span className="badge badge-warning">1</span>
+                        </button>
+                    </div>
+                </div>
                 <SearchForm />
                 <ListUsers />
                 <AddModal />

@@ -17,18 +17,18 @@ export const increItemToCart = (user, qty) => {
     }
 }
 
-export const deleteItem = (user) => {
-    return {
-        type: actionTypes.DELETE_ITEM,
-        user
-    }
-}
-
 export const decreItemToCart = (user, qty) => {
     return {
         type: actionTypes.DECRE_ITEM_TO_CART,
         user,
         qty
+    }
+}
+
+export const deleteItem = (user) => {
+    return {
+        type: actionTypes.DELETE_ITEM,
+        user
     }
 }
 

@@ -8,6 +8,8 @@ import ReactPaginate from 'react-paginate';
 import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
 
+
+const price = 500;
 class ListUsers extends Component{
     constructor(){
         super();
@@ -47,28 +49,28 @@ class ListUsers extends Component{
     }
 
     handleDecre(item, qty){
-        this.props.increItemToCart(item, qty);
+        this.props.decreItemToCart(item, qty);
     }
 
     handleIncre(item, qty){
-        this.props.decreItemToCart(item, qty);
+        this.props.increItemToCart(item, qty);
     }
 
     handleDeleteItem(item){
         this.props.deleteItem(item);
     }
 
-    componentWillReceiveProps(props) {
-        var {cart} = this.props;
-        // console.log(cart)
-    }
-
     showCart(cart) {
-
         var result = null;
         var {cart} = this.props;
-        // console.log(cart)
+        var total = 0;
+
+        for (let i = 0; i < cart.length; i++) {
+            total = total + cart[i].qty*price;
+        }
+
         if(cart.length > 0) {
+            const price = 500;
             result = (
                 <table className="table">
                     <thead>
@@ -76,6 +78,8 @@ class ListUsers extends Component{
                             <th>STT</th>
                             <th>Name</th>
                             <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
@@ -88,18 +92,20 @@ class ListUsers extends Component{
                                 <td>
                                     <button
                                         className='btn btn-outline-danger mr-1'
-                                        onClick={() => {this.handleDecre(item.user, 1)}}
+                                        onClick={() => {this.handleDecre(item.user, item.qty)}}
                                     >
                                         <span className='fa fa-minus'></span>
                                     </button>
                                     <span>{item.qty}</span>
                                     <button
                                         className='btn btn-outline-danger ml-1'
-                                        onClick={() => {this.handleIncre(item.user, 1)}}
+                                        onClick={() => {this.handleIncre(item.user, item.qty)}}
                                     >
                                         <span className='fa fa-plus'></span>
                                     </button>
                                 </td>
+                                <th>{price}</th>
+                                <td>{price*item.qty}</td>
                                 <td>
                                     <span
                                         className='fa fa-remove fa-2x text-danger btn'
@@ -109,12 +115,24 @@ class ListUsers extends Component{
                             </tr>
                         ))
                     }
+                        <tr>
+                            <th colSpan="5">Total</th>
+                            <th>{total} $</th>
+                        </tr>
                     </tbody>
                 </table>
             )
 
         }
         return result;
+    }
+
+    subTotalCart(cart){
+        var {cart} = this.props;
+        let total = 0;
+        cart.map(
+            console.log(cart.qty)
+        )
     }
 
     render() {
@@ -196,7 +214,6 @@ class ListUsers extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.cartReducer);
     return {
         users: state.usersReducer.users,
         cart: state.cartReducer,

@@ -5,7 +5,6 @@ const initialState = []
 function cartReducer(state = initialState, action) {
     switch (action.type) {
         case actionTypes.ADD_TO_CART:
-            console.log(action);
             var {user, qty} = action;
             var cart = {
                 user,
@@ -16,17 +15,37 @@ function cartReducer(state = initialState, action) {
             if (index === -1){
                 return [cart, ...state];
             } else {
-                state[index].qty += qty;
-                return state;
+                var newQty = state[index].qty +1;
+                var newItem = {...state[index], qty:newQty}
+                return [...state.slice(0, index), newItem, ...state.slice(index+1)];
             }
 
         case actionTypes.INCRE_ITEM_TO_CART:
-            cart.qty = cart.qty + 1
-            return [...state, cart.qty];
+            var newQty = action.qty + 1;
+            var itemId = action.user.id;
+            var index = state.findIndex(i => i.user.id === itemId);
+            if (newQty > 1){
+                let newItem = {...state[index], qty:newQty};
+                return [...state.slice(0, index), newItem, ...state.slice(index+1)];
+            } else {
+                newQty = 1;
+                newItem = {...state[index], qty:newQty};
+                return [...state.slice(0, index), newItem, ...state.slice(index+1)];
+            }
 
         case actionTypes.DECRE_ITEM_TO_CART:
-            console.log(cart.qty)
-            return [...state, cart.qty];
+            newQty = action.qty - 1;
+            itemId = action.user.id;
+            index = state.findIndex(i => i.user.id === itemId);
+            if (newQty > 1){
+                let newItem = {...state[index], qty:newQty};
+                return [...state.slice(0, index), newItem, ...state.slice(index+1)];
+            } else {
+                newQty = 1;
+                newItem = {...state[index], qty:newQty};
+                return [...state.slice(0, index), newItem, ...state.slice(index+1)];
+            }
+
 
         case actionTypes.DELETE_ITEM:
             var userId = action.user.id
