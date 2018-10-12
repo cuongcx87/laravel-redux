@@ -14,3 +14,4 @@ export const DELETE_ITEM = 'DELETE_ITEM';
 export const OPEN_LOGIN_FORM = 'OPEN_LOGIN_FORM';
 export const CLOSE_LOGIN_FORM = 'CLOSE_LOGIN_FORM';
 export const LOGIN_FORM = 'LOGIN_FORM';
+export const RESET_LOGIN_FORM = 'RESET_LOGIN_FORM';

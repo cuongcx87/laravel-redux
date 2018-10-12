@@ -163,10 +163,12 @@ export function closeLoginModal(user) {
 
 export const loginApi = (user) => {
     return (dispatch) => {
-        axios.put(`/api/${user.id}/edit`, user).then(response => {
-            dispatch(addUser(response.data)),
-                dispatch(fetchAllUsersApi()),
-                dispatch(hideAddModal())
+        axios.post(`/api/login`, user).then(response => {
+            if (response.status === 200) {
+                localStorage.setItem('jwt', response.data.token);
+                localStorage.setItem('user_auth', response.data.user);
+                dispatch(closeLoginModal())
+            }
         }).catch(error => {
             console.log(error);
         })
@@ -176,6 +178,13 @@ export const loginApi = (user) => {
 export function login(user) {
     return {
         type: actionTypes.LOGIN_FORM,
+        user
+    }
+}
+
+export function resetLoginForm(user) {
+    return {
+        type: actionTypes.RESET_LOGIN_FORM,
         user
     }
 }

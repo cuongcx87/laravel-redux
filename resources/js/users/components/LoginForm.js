@@ -13,7 +13,7 @@ class LoginForm extends Component{
     }
 
     handleSubmit(formProps){
-        console.log(formProps);
+        // console.log(formProps);
         this.props.loginForm(formProps);
     }
 

@@ -48,6 +48,12 @@ function usersReducer(state = initialState, action) {
         case actionTypes.CLOSE_LOGIN_FORM:
             return {...state, modalLogin: false}
 
+        case actionTypes.LOGIN_FORM:
+            return {...state}
+
+        case actionTypes.RESET_LOGIN_FORM:
+            return {...state}
+
         default:
             return state;
     }
