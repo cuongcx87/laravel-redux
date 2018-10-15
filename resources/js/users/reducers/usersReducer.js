@@ -54,6 +54,9 @@ function usersReducer(state = initialState, action) {
         case actionTypes.RESET_LOGIN_FORM:
             return {...state}
 
+        case actionTypes.LOGOUT_USER:
+            return {...state}
+
         default:
             return state;
     }

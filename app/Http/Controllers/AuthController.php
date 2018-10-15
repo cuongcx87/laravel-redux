@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\User;
 use JWTAuth;
-use JWTAuthException;
 
 class AuthController extends Controller
 {
@@ -28,35 +26,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function getToken($email, $password)
-    {
-        $token = null;
-        //$credentials = $request->only('email', 'password');
-        try {
-            if (!$token = JWTAuth::attempt( ['email'=>$email, 'password'=>$password])) {
-                return response()->json([
-                    'response' => 'error',
-                    'message' => 'Password or email is invalid',
-                    'token'=>$token
-                ]);
-            }
-        } catch (JWTAuthException $e) {
-            return response()->json([
-                'response' => 'error',
-                'message' => 'Token creation failed',
-            ]);
-        }
-        return $token;
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if ($token = $this->guard()->attempt($credentials)) {
-            $token = self::getToken($request->email, $request->password);
-            $user = Auth::user();
-            return response()->json(['user'=>$user, 'token' => $token]);
+        if ($token = JWTAuth::attempt($credentials)) {
+            $user = Auth::guard('api')->user();
+            return response()->json(['token' => $token, 'user' => $user]);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);

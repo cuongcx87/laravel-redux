@@ -164,10 +164,12 @@ export function closeLoginModal(user) {
 export const loginApi = (user) => {
     return (dispatch) => {
         axios.post(`/api/login`, user).then(response => {
+            console.log(response);
             if (response.status === 200) {
                 localStorage.setItem('jwt', response.data.token);
-                localStorage.setItem('user_auth', response.data.user);
+                localStorage.setItem('user_auth', JSON.stringify(response.data.user));
                 dispatch(closeLoginModal())
+                console.log(localStorage.getItem('user_auth'));
             }
         }).catch(error => {
             console.log(error);
@@ -186,6 +188,21 @@ export function resetLoginForm(user) {
     return {
         type: actionTypes.RESET_LOGIN_FORM,
         user
+    }
+}
+
+export const logoutApi = () => {
+    return (dispatch) => {
+        axios.post(`/api/logout`).then(response => {
+            console.log(response);
+            if (response.status === 200) {
+                localStorage.setItem('jwt', response.data.token);
+                localStorage.setItem('user_auth', response.data.user);
+                dispatch(closeLoginModal())
+            }
+        }).catch(error => {
+            console.log(error);
+        })
     }
 }
 

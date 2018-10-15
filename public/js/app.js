@@ -1349,7 +1349,7 @@ function isObjectLike(value) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return deleteItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return changePage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return changePageWithSearch; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return searchFormApi; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return searchFormApi; });
 /* unused harmony export searchForm */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return fetchAllUsersApi; });
 /* unused harmony export allUsers */
@@ -1359,13 +1359,14 @@ function isObjectLike(value) {
 /* unused harmony export addUser */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return editUserApi; });
 /* unused harmony export editUser */
-/* harmony export (immutable) */ __webpack_exports__["o"] = showAddModal;
+/* harmony export (immutable) */ __webpack_exports__["p"] = showAddModal;
 /* harmony export (immutable) */ __webpack_exports__["k"] = hideAddModal;
-/* harmony export (immutable) */ __webpack_exports__["p"] = showLoginModal;
+/* harmony export (immutable) */ __webpack_exports__["q"] = showLoginModal;
 /* harmony export (immutable) */ __webpack_exports__["e"] = closeLoginModal;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return loginApi; });
 /* unused harmony export login */
 /* unused harmony export resetLoginForm */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return logoutApi; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(50);
 
 
@@ -1426,7 +1427,7 @@ var searchFormApi = function searchFormApi(key) {
 
 function searchForm(key) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["p" /* SEARCH_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["q" /* SEARCH_FORM */],
         key: key
     };
 }
@@ -1499,7 +1500,7 @@ function editUser(user) {
 
 function showAddModal(user) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["l" /* OPEN_ADD_MODAL */],
+        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["m" /* OPEN_ADD_MODAL */],
         user: user
     };
 }
@@ -1512,7 +1513,7 @@ function hideAddModal() {
 
 function showLoginModal(user) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["m" /* OPEN_LOGIN_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["n" /* OPEN_LOGIN_FORM */],
         user: user
     };
 }
@@ -1527,10 +1528,12 @@ function closeLoginModal(user) {
 var loginApi = function loginApi(user) {
     return function (dispatch) {
         axios.post('/api/login', user).then(function (response) {
+            console.log(response);
             if (response.status === 200) {
                 localStorage.setItem('jwt', response.data.token);
-                localStorage.setItem('user_auth', response.data.user);
+                localStorage.setItem('user_auth', JSON.stringify(response.data.user));
                 dispatch(closeLoginModal());
+                console.log(localStorage.getItem('user_auth'));
             }
         }).catch(function (error) {
             console.log(error);
@@ -1547,10 +1550,25 @@ function login(user) {
 
 function resetLoginForm(user) {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["o" /* RESET_LOGIN_FORM */],
+        type: __WEBPACK_IMPORTED_MODULE_0__actionTypes__["p" /* RESET_LOGIN_FORM */],
         user: user
     };
 }
+
+var logoutApi = function logoutApi() {
+    return function (dispatch) {
+        axios.post('/api/logout').then(function (response) {
+            console.log(response);
+            if (response.status === 200) {
+                localStorage.setItem('jwt', response.data.token);
+                localStorage.setItem('user_auth', response.data.user);
+                dispatch(closeLoginModal());
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
+};
 
 /***/ }),
 /* 13 */
@@ -6080,21 +6098,22 @@ var matchPath = function matchPath(pathname) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ADD_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_ALL_USERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return OPEN_ADD_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return OPEN_ADD_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLOSE_ADD_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DELETE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return EDIT_USER; });
 /* unused harmony export LIST_USERS */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PAGE_CHANGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SEARCH_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PAGE_CHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SEARCH_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return INCRE_ITEM_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DECRE_ITEM_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return DELETE_ITEM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return OPEN_LOGIN_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return OPEN_LOGIN_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CLOSE_LOGIN_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LOGIN_FORM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return RESET_LOGIN_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return LOGOUT_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return RESET_LOGIN_FORM; });
 var ADD_USER = 'ADD_USER';
 var GET_ALL_USERS = 'GET_ALL_USERS';
 var OPEN_ADD_MODAL = 'OPEN_ADD_MODAL';
@@ -6111,6 +6130,7 @@ var DELETE_ITEM = 'DELETE_ITEM';
 var OPEN_LOGIN_FORM = 'OPEN_LOGIN_FORM';
 var CLOSE_LOGIN_FORM = 'CLOSE_LOGIN_FORM';
 var LOGIN_FORM = 'LOGIN_FORM';
+var LOGOUT_USER = 'LOGOUT_USER';
 var RESET_LOGIN_FORM = 'RESET_LOGIN_FORM';
 
 /***/ }),
@@ -6763,6 +6783,246 @@ function isPromise(obj) {
 
 
 
+// https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.4/js/src/modal.js#L436-L443
+function getScrollbarWidth() {
+  var scrollDiv = document.createElement('div');
+  // .modal-scrollbar-measure styles // https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.4/scss/_modal.scss#L106-L113
+  scrollDiv.style.position = 'absolute';
+  scrollDiv.style.top = '-9999px';
+  scrollDiv.style.width = '50px';
+  scrollDiv.style.height = '50px';
+  scrollDiv.style.overflow = 'scroll';
+  document.body.appendChild(scrollDiv);
+  var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+  document.body.removeChild(scrollDiv);
+  return scrollbarWidth;
+}
+
+function setScrollbarWidth(padding) {
+  document.body.style.paddingRight = padding > 0 ? padding + 'px' : null;
+}
+
+function isBodyOverflowing() {
+  return document.body.clientWidth < window.innerWidth;
+}
+
+function getOriginalBodyPadding() {
+  var style = window.getComputedStyle(document.body, null);
+
+  return parseInt(style && style.getPropertyValue('padding-right') || 0, 10);
+}
+
+function conditionallyUpdateScrollbar() {
+  var scrollbarWidth = getScrollbarWidth();
+  // https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.6/js/src/modal.js#L433
+  var fixedContent = document.querySelectorAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top')[0];
+  var bodyPadding = fixedContent ? parseInt(fixedContent.style.paddingRight || 0, 10) : 0;
+
+  if (isBodyOverflowing()) {
+    setScrollbarWidth(bodyPadding + scrollbarWidth);
+  }
+}
+
+var globalCssModule = void 0;
+
+function setGlobalCssModule(cssModule) {
+  globalCssModule = cssModule;
+}
+
+function mapToCssModules() {
+  var className = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var cssModule = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : globalCssModule;
+
+  if (!cssModule) return className;
+  return className.split(' ').map(function (c) {
+    return cssModule[c] || c;
+  }).join(' ');
+}
+
+/**
+ * Returns a new object with the key/value pairs from `obj` that are not in the array `omitKeys`.
+ */
+function omit(obj, omitKeys) {
+  var result = {};
+  Object.keys(obj).forEach(function (key) {
+    if (omitKeys.indexOf(key) === -1) {
+      result[key] = obj[key];
+    }
+  });
+  return result;
+}
+
+/**
+ * Returns a filtered copy of an object with only the specified keys.
+ */
+function pick(obj, keys) {
+  var pickKeys = Array.isArray(keys) ? keys : [keys];
+  var length = pickKeys.length;
+  var key = void 0;
+  var result = {};
+
+  while (length > 0) {
+    length -= 1;
+    key = pickKeys[length];
+    result[key] = obj[key];
+  }
+  return result;
+}
+
+var warned = {};
+
+function warnOnce(message) {
+  if (!warned[message]) {
+    /* istanbul ignore else */
+    if (typeof console !== 'undefined') {
+      console.error(message); // eslint-disable-line no-console
+    }
+    warned[message] = true;
+  }
+}
+
+function deprecated(propType, explanation) {
+  return function validate(props, propName, componentName) {
+    if (props[propName] !== null && typeof props[propName] !== 'undefined') {
+      warnOnce('"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation);
+    }
+
+    for (var _len = arguments.length, rest = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+      rest[_key - 3] = arguments[_key];
+    }
+
+    return propType.apply(undefined, [props, propName, componentName].concat(rest));
+  };
+}
+
+function DOMElement(props, propName, componentName) {
+  if (!(props[propName] instanceof Element)) {
+    return new Error('Invalid prop `' + propName + '` supplied to `' + componentName + '`. Expected prop to be an instance of Element. Validation failed.');
+  }
+}
+
+/* eslint key-spacing: ["error", { afterColon: true, align: "value" }] */
+// These are all setup to match what is in the bootstrap _variables.scss
+// https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+var TransitionTimeouts = {
+  Fade: 150, // $transition-fade
+  Collapse: 350, // $transition-collapse
+  Modal: 300, // $modal-transition
+  Carousel: 600 // $carousel-transition
+};
+
+// Duplicated Transition.propType keys to ensure that Reactstrap builds
+// for distribution properly exclude these keys for nested child HTML attributes
+// since `react-transition-group` removes propTypes in production builds.
+var TransitionPropTypeKeys = ['in', 'mountOnEnter', 'unmountOnExit', 'appear', 'enter', 'exit', 'timeout', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited'];
+
+var TransitionStatuses = {
+  ENTERING: 'entering',
+  ENTERED: 'entered',
+  EXITING: 'exiting',
+  EXITED: 'exited'
+};
+
+var keyCodes = {
+  esc: 27,
+  space: 32,
+  tab: 9,
+  up: 38,
+  down: 40
+};
+
+var PopperPlacements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+function findDOMElements(target) {
+  if (__WEBPACK_IMPORTED_MODULE_3_lodash_isfunction___default()(target)) {
+    return target();
+  }
+  if (typeof target === 'string' && canUseDOM) {
+    var selection = document.querySelectorAll(target);
+    if (!selection.length) {
+      selection = document.querySelectorAll('#' + target);
+    }
+    if (!selection.length) {
+      throw new Error('The target \'' + target + '\' could not be identified in the dom, tip: check spelling');
+    }
+    return selection;
+  }
+  return target;
+}
+
+function isArrayOrNodeList(els) {
+  return Array.isArray(els) || canUseDOM && typeof els.length === 'number';
+}
+
+function getTarget(target) {
+  var els = findDOMElements(target);
+  if (isArrayOrNodeList(els)) {
+    return els[0];
+  }
+  return els;
+}
+
+var defaultToggleEvents = ['touchstart', 'click'];
+
+function addMultipleEventListeners(_els, handler, _events) {
+  var els = _els;
+  if (!isArrayOrNodeList(els)) {
+    els = [els];
+  }
+
+  var events = _events;
+  if (typeof events === 'string') {
+    events = events.split(/\s+/);
+  }
+
+  if (!isArrayOrNodeList(els) || typeof handler !== 'function' || !Array.isArray(events)) {
+    throw new Error('\n      The first argument of this function must be DOM node or an array on DOM nodes or NodeList.\n      The second must be a function.\n      The third is a string or an array of strings that represents DOM events\n    ');
+  }
+  events.forEach(function (event) {
+    els.forEach(function (el) {
+      el.addEventListener(event, handler);
+    });
+  });
+  return function removeEvents() {
+    events.forEach(function (event) {
+      els.forEach(function (el) {
+        el.removeEventListener(event, handler);
+      });
+    });
+  };
+}
+
+var focusableElements = ['a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])', 'select:not([disabled])', 'textarea:not([disabled])', 'button:not([disabled])', 'object', 'embed', '[tabindex]:not(.modal)', 'audio[controls]', 'video[controls]', '[contenteditable]:not([contenteditable="false"])'];
+
+var utils = Object.freeze({
+	getScrollbarWidth: getScrollbarWidth,
+	setScrollbarWidth: setScrollbarWidth,
+	isBodyOverflowing: isBodyOverflowing,
+	getOriginalBodyPadding: getOriginalBodyPadding,
+	conditionallyUpdateScrollbar: conditionallyUpdateScrollbar,
+	setGlobalCssModule: setGlobalCssModule,
+	mapToCssModules: mapToCssModules,
+	omit: omit,
+	pick: pick,
+	warnOnce: warnOnce,
+	deprecated: deprecated,
+	DOMElement: DOMElement,
+	TransitionTimeouts: TransitionTimeouts,
+	TransitionPropTypeKeys: TransitionPropTypeKeys,
+	TransitionStatuses: TransitionStatuses,
+	keyCodes: keyCodes,
+	PopperPlacements: PopperPlacements,
+	canUseDOM: canUseDOM,
+	findDOMElements: findDOMElements,
+	isArrayOrNodeList: isArrayOrNodeList,
+	getTarget: getTarget,
+	defaultToggleEvents: defaultToggleEvents,
+	addMultipleEventListeners: addMultipleEventListeners,
+	focusableElements: focusableElements
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -6882,266 +7142,6 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-// https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.4/js/src/modal.js#L436-L443
-function getScrollbarWidth() {
-  var scrollDiv = document.createElement('div');
-  // .modal-scrollbar-measure styles // https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.4/scss/_modal.scss#L106-L113
-  scrollDiv.style.position = 'absolute';
-  scrollDiv.style.top = '-9999px';
-  scrollDiv.style.width = '50px';
-  scrollDiv.style.height = '50px';
-  scrollDiv.style.overflow = 'scroll';
-  document.body.appendChild(scrollDiv);
-  var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-  document.body.removeChild(scrollDiv);
-  return scrollbarWidth;
-}
-
-function setScrollbarWidth(padding) {
-  document.body.style.paddingRight = padding > 0 ? padding + 'px' : null;
-}
-
-function isBodyOverflowing() {
-  return document.body.clientWidth < window.innerWidth;
-}
-
-function getOriginalBodyPadding() {
-  var style = window.getComputedStyle(document.body, null);
-
-  return parseInt(style && style.getPropertyValue('padding-right') || 0, 10);
-}
-
-function conditionallyUpdateScrollbar() {
-  var scrollbarWidth = getScrollbarWidth();
-  // https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.6/js/src/modal.js#L433
-  var fixedContent = document.querySelectorAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top')[0];
-  var bodyPadding = fixedContent ? parseInt(fixedContent.style.paddingRight || 0, 10) : 0;
-
-  if (isBodyOverflowing()) {
-    setScrollbarWidth(bodyPadding + scrollbarWidth);
-  }
-}
-
-var globalCssModule = void 0;
-
-function setGlobalCssModule(cssModule) {
-  globalCssModule = cssModule;
-}
-
-function mapToCssModules() {
-  var className = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var cssModule = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : globalCssModule;
-
-  if (!cssModule) return className;
-  return className.split(' ').map(function (c) {
-    return cssModule[c] || c;
-  }).join(' ');
-}
-
-/**
- * Returns a new object with the key/value pairs from `obj` that are not in the array `omitKeys`.
- */
-function omit(obj, omitKeys) {
-  var result = {};
-  Object.keys(obj).forEach(function (key) {
-    if (omitKeys.indexOf(key) === -1) {
-      result[key] = obj[key];
-    }
-  });
-  return result;
-}
-
-/**
- * Returns a filtered copy of an object with only the specified keys.
- */
-function pick(obj, keys) {
-  var pickKeys = Array.isArray(keys) ? keys : [keys];
-  var length = pickKeys.length;
-  var key = void 0;
-  var result = {};
-
-  while (length > 0) {
-    length -= 1;
-    key = pickKeys[length];
-    result[key] = obj[key];
-  }
-  return result;
-}
-
-var warned = {};
-
-function warnOnce(message) {
-  if (!warned[message]) {
-    /* istanbul ignore else */
-    if (typeof console !== 'undefined') {
-      console.error(message); // eslint-disable-line no-console
-    }
-    warned[message] = true;
-  }
-}
-
-function deprecated(propType, explanation) {
-  return function validate(props, propName, componentName) {
-    if (props[propName] !== null && typeof props[propName] !== 'undefined') {
-      warnOnce('"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation);
-    }
-
-    for (var _len = arguments.length, rest = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-      rest[_key - 3] = arguments[_key];
-    }
-
-    return propType.apply(undefined, [props, propName, componentName].concat(rest));
-  };
-}
-
-function DOMElement(props, propName, componentName) {
-  if (!(props[propName] instanceof Element)) {
-    return new Error('Invalid prop `' + propName + '` supplied to `' + componentName + '`. Expected prop to be an instance of Element. Validation failed.');
-  }
-}
-
-var targetPropType = __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.shape({ current: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any })]);
-
-/* eslint key-spacing: ["error", { afterColon: true, align: "value" }] */
-// These are all setup to match what is in the bootstrap _variables.scss
-// https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
-var TransitionTimeouts = {
-  Fade: 150, // $transition-fade
-  Collapse: 350, // $transition-collapse
-  Modal: 300, // $modal-transition
-  Carousel: 600 // $carousel-transition
-};
-
-// Duplicated Transition.propType keys to ensure that Reactstrap builds
-// for distribution properly exclude these keys for nested child HTML attributes
-// since `react-transition-group` removes propTypes in production builds.
-var TransitionPropTypeKeys = ['in', 'mountOnEnter', 'unmountOnExit', 'appear', 'enter', 'exit', 'timeout', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited'];
-
-var TransitionStatuses = {
-  ENTERING: 'entering',
-  ENTERED: 'entered',
-  EXITING: 'exiting',
-  EXITED: 'exited'
-};
-
-var keyCodes = {
-  esc: 27,
-  space: 32,
-  enter: 13,
-  tab: 9,
-  up: 38,
-  down: 40
-};
-
-var PopperPlacements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
-
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-function isReactRefObj(target) {
-  if (target && (typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object') {
-    return 'current' in target;
-  }
-  return false;
-}
-
-function findDOMElements(target) {
-  if (isReactRefObj(target)) {
-    return target.current;
-  }
-  if (__WEBPACK_IMPORTED_MODULE_3_lodash_isfunction___default()(target)) {
-    return target();
-  }
-  if (typeof target === 'string' && canUseDOM) {
-    var selection = document.querySelectorAll(target);
-    if (!selection.length) {
-      selection = document.querySelectorAll('#' + target);
-    }
-    if (!selection.length) {
-      throw new Error('The target \'' + target + '\' could not be identified in the dom, tip: check spelling');
-    }
-    return selection;
-  }
-  return target;
-}
-
-function isArrayOrNodeList(els) {
-  if (els === null) {
-    return false;
-  }
-  return Array.isArray(els) || canUseDOM && typeof els.length === 'number';
-}
-
-function getTarget(target) {
-  var els = findDOMElements(target);
-  if (isArrayOrNodeList(els)) {
-    return els[0];
-  }
-  return els;
-}
-
-var defaultToggleEvents = ['touchstart', 'click'];
-
-function addMultipleEventListeners(_els, handler, _events) {
-  var els = _els;
-  if (!isArrayOrNodeList(els)) {
-    els = [els];
-  }
-
-  var events = _events;
-  if (typeof events === 'string') {
-    events = events.split(/\s+/);
-  }
-
-  if (!isArrayOrNodeList(els) || typeof handler !== 'function' || !Array.isArray(events)) {
-    throw new Error('\n      The first argument of this function must be DOM node or an array on DOM nodes or NodeList.\n      The second must be a function.\n      The third is a string or an array of strings that represents DOM events\n    ');
-  }
-  events.forEach(function (event) {
-    els.forEach(function (el) {
-      el.addEventListener(event, handler);
-    });
-  });
-  return function removeEvents() {
-    events.forEach(function (event) {
-      els.forEach(function (el) {
-        el.removeEventListener(event, handler);
-      });
-    });
-  };
-}
-
-var focusableElements = ['a[href]', 'area[href]', 'input:not([disabled]):not([type=hidden])', 'select:not([disabled])', 'textarea:not([disabled])', 'button:not([disabled])', 'object', 'embed', '[tabindex]:not(.modal)', 'audio[controls]', 'video[controls]', '[contenteditable]:not([contenteditable="false"])'];
-
-
-
-var utils = Object.freeze({
-	getScrollbarWidth: getScrollbarWidth,
-	setScrollbarWidth: setScrollbarWidth,
-	isBodyOverflowing: isBodyOverflowing,
-	getOriginalBodyPadding: getOriginalBodyPadding,
-	conditionallyUpdateScrollbar: conditionallyUpdateScrollbar,
-	setGlobalCssModule: setGlobalCssModule,
-	mapToCssModules: mapToCssModules,
-	omit: omit,
-	pick: pick,
-	warnOnce: warnOnce,
-	deprecated: deprecated,
-	DOMElement: DOMElement,
-	targetPropType: targetPropType,
-	TransitionTimeouts: TransitionTimeouts,
-	TransitionPropTypeKeys: TransitionPropTypeKeys,
-	TransitionStatuses: TransitionStatuses,
-	keyCodes: keyCodes,
-	PopperPlacements: PopperPlacements,
-	canUseDOM: canUseDOM,
-	isReactRefObj: isReactRefObj,
-	findDOMElements: findDOMElements,
-	isArrayOrNodeList: isArrayOrNodeList,
-	getTarget: getTarget,
-	defaultToggleEvents: defaultToggleEvents,
-	addMultipleEventListeners: addMultipleEventListeners,
-	focusableElements: focusableElements
-});
-
 var propTypes = {
   tag: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
   fluid: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
@@ -7173,8 +7173,7 @@ var propTypes$1 = {
   tag: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
   noGutters: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   className: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  cssModule: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  form: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool
+  cssModule: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
 };
 
 var defaultProps$1 = {
@@ -7186,11 +7185,10 @@ var Row = function Row(props) {
       cssModule = props.cssModule,
       noGutters = props.noGutters,
       Tag = props.tag,
-      form = props.form,
-      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'noGutters', 'tag', 'form']);
+      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'noGutters', 'tag']);
 
 
-  var classes = mapToCssModules(__WEBPACK_IMPORTED_MODULE_2_classnames___default()(className, noGutters ? 'no-gutters' : null, form ? 'form-row' : 'row'), cssModule);
+  var classes = mapToCssModules(__WEBPACK_IMPORTED_MODULE_2_classnames___default()(className, noGutters ? 'no-gutters' : null, 'row'), cssModule);
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Tag, _extends({}, attributes, { className: classes }));
 };
@@ -7632,7 +7630,7 @@ var Dropdown = function (_React$Component) {
 
       var container = this.getContainer();
 
-      if (e.which === keyCodes.space && keyCodes.enter && this.props.isOpen && container !== e.target) {
+      if (e.which === keyCodes.space && this.props.isOpen && container !== e.target) {
         e.target.click();
       }
 
@@ -7881,7 +7879,6 @@ BreadcrumbItem.defaultProps = defaultProps$11;
 
 var propTypes$12 = {
   active: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  'aria-label': __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   block: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   color: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   disabled: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
@@ -7892,8 +7889,7 @@ var propTypes$12 = {
   size: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node,
   className: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  cssModule: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  close: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool
+  cssModule: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
 };
 
 var defaultProps$12 = {
@@ -7930,44 +7926,29 @@ var Button = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           active = _props.active,
-          ariaLabel = _props['aria-label'],
           block = _props.block,
           className = _props.className,
-          close = _props.close,
           cssModule = _props.cssModule,
           color = _props.color,
           outline = _props.outline,
           size = _props.size,
           Tag = _props.tag,
           innerRef = _props.innerRef,
-          attributes = objectWithoutProperties(_props, ['active', 'aria-label', 'block', 'className', 'close', 'cssModule', 'color', 'outline', 'size', 'tag', 'innerRef']);
+          attributes = objectWithoutProperties(_props, ['active', 'block', 'className', 'cssModule', 'color', 'outline', 'size', 'tag', 'innerRef']);
 
 
-      if (close && typeof attributes.children === 'undefined') {
-        attributes.children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { 'aria-hidden': true },
-          '\xD7'
-        );
-      }
-
-      var btnOutlineColor = 'btn' + (outline ? '-outline' : '') + '-' + color;
-
-      var classes = mapToCssModules(__WEBPACK_IMPORTED_MODULE_2_classnames___default()(className, { close: close }, close || 'btn', close || btnOutlineColor, size ? 'btn-' + size : false, block ? 'btn-block' : false, { active: active, disabled: this.props.disabled }), cssModule);
+      var classes = mapToCssModules(__WEBPACK_IMPORTED_MODULE_2_classnames___default()(className, 'btn', 'btn' + (outline ? '-outline' : '') + '-' + color, size ? 'btn-' + size : false, block ? 'btn-block' : false, { active: active, disabled: this.props.disabled }), cssModule);
 
       if (attributes.href && Tag === 'button') {
         Tag = 'a';
       }
-
-      var defaultAriaLabel = close ? 'Close' : null;
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Tag, _extends({
         type: Tag === 'button' && attributes.onClick ? 'button' : undefined
       }, attributes, {
         className: classes,
         ref: innerRef,
-        onClick: this.onClick,
-        'aria-label': ariaLabel || defaultAriaLabel
+        onClick: this.onClick
       }));
     }
   }]);
@@ -10164,10 +10145,10 @@ var propTypes$36 = {
   offset: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number]),
   fallbackPlacement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array]),
   flip: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  container: targetPropType,
-  target: targetPropType.isRequired,
+  container: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]),
+  target: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]).isRequired,
   modifiers: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, DOMElement])
+  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string
 };
 
 var defaultProps$33 = {
@@ -10361,14 +10342,14 @@ PopperTargetHelper.contextTypes = {
 };
 
 PopperTargetHelper.propTypes = {
-  target: targetPropType.isRequired
+  target: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]).isRequired
 };
 
 var propTypes$37 = {
   placement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(PopperPlacements),
-  target: targetPropType.isRequired,
-  container: targetPropType,
-  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, DOMElement]),
+  target: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]).isRequired,
+  container: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]),
+  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   isOpen: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   disabled: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   hideArrow: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
@@ -10411,7 +10392,6 @@ var Popover = function (_React$Component) {
     _this.toggle = _this.toggle.bind(_this);
     _this.show = _this.show.bind(_this);
     _this.hide = _this.hide.bind(_this);
-    _this._target = null;
     return _this;
   }
 
@@ -10492,15 +10472,13 @@ var Popover = function (_React$Component) {
   }, {
     key: 'handleDocumentClick',
     value: function handleDocumentClick(e) {
-      if (this._target) {
-        if (e.target !== this._target && !this._target.contains(e.target) && e.target !== this._popover && !(this._popover && this._popover.contains(e.target))) {
-          if (this._hideTimeout) {
-            this.clearHideTimeout();
-          }
+      if (e.target !== this._target && !this._target.contains(e.target) && e.target !== this._popover && !(this._popover && this._popover.contains(e.target))) {
+        if (this._hideTimeout) {
+          this.clearHideTimeout();
+        }
 
-          if (this.props.isOpen) {
-            this.toggle(e);
-          }
+        if (this.props.isOpen) {
+          this.toggle(e);
         }
       }
     }
@@ -10980,10 +10958,10 @@ var Modal = function (_React$Component) {
       conditionallyUpdateScrollbar();
 
       document.body.appendChild(this._element);
-      if (Modal.openCount === 0) {
+      if (!this.bodyClassAdded) {
         document.body.className = __WEBPACK_IMPORTED_MODULE_2_classnames___default()(document.body.className, mapToCssModules('modal-open', this.props.cssModule));
+        this.bodyClassAdded = true;
       }
-      Modal.openCount += 1;
     }
   }, {
     key: 'destroy',
@@ -10994,17 +10972,17 @@ var Modal = function (_React$Component) {
       }
 
       if (this._triggeringElement) {
-        if (this._triggeringElement.focus) this._triggeringElement.focus();
+        this._triggeringElement.focus();
         this._triggeringElement = null;
       }
 
-      if (Modal.openCount <= 1) {
+      if (this.bodyClassAdded) {
         var modalOpenClassName = mapToCssModules('modal-open', this.props.cssModule);
         // Use regex to prevent matching `modal-open` as part of a different class, e.g. `my-modal-opened`
         var modalOpenClassNameRegex = new RegExp('(^| )' + modalOpenClassName + '( |$)');
         document.body.className = document.body.className.replace(modalOpenClassNameRegex, ' ').trim();
+        this.bodyClassAdded = false;
       }
-      Modal.openCount -= 1;
 
       setScrollbarWidth(this._originalBodyPadding);
     }
@@ -11111,7 +11089,6 @@ var Modal = function (_React$Component) {
 
 Modal.propTypes = propTypes$41;
 Modal.defaultProps = defaultProps$38;
-Modal.openCount = 0;
 
 var propTypes$43 = {
   tag: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
@@ -11121,8 +11098,7 @@ var propTypes$43 = {
   cssModule: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node,
   closeAriaLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  charCode: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number]),
-  close: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
+  charCode: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number])
 };
 
 var defaultProps$39 = {
@@ -11142,13 +11118,12 @@ var ModalHeader = function ModalHeader(props) {
       WrapTag = props.wrapTag,
       closeAriaLabel = props.closeAriaLabel,
       charCode = props.charCode,
-      close = props.close,
-      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'children', 'toggle', 'tag', 'wrapTag', 'closeAriaLabel', 'charCode', 'close']);
+      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'children', 'toggle', 'tag', 'wrapTag', 'closeAriaLabel', 'charCode']);
 
 
   var classes = mapToCssModules(__WEBPACK_IMPORTED_MODULE_2_classnames___default()(className, 'modal-header'), cssModule);
 
-  if (!close && toggle) {
+  if (toggle) {
     var closeIcon = typeof charCode === 'number' ? String.fromCharCode(charCode) : charCode;
     closeButton = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'button',
@@ -11169,7 +11144,7 @@ var ModalHeader = function ModalHeader(props) {
       { className: mapToCssModules('modal-title', cssModule) },
       children
     ),
-    close || closeButton
+    closeButton
   );
 };
 
@@ -11226,12 +11201,12 @@ ModalFooter.defaultProps = defaultProps$41;
 
 var propTypes$46 = {
   placement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(PopperPlacements),
-  target: targetPropType.isRequired,
-  container: targetPropType,
+  target: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]).isRequired,
+  container: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func, DOMElement]),
   isOpen: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   disabled: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   hideArrow: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, DOMElement]),
+  boundariesElement: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   className: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   innerClassName: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   arrowClassName: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
@@ -11269,7 +11244,6 @@ var Tooltip = function (_React$Component) {
 
     var _this = possibleConstructorReturn(this, (Tooltip.__proto__ || Object.getPrototypeOf(Tooltip)).call(this, props));
 
-    _this._target = null;
     _this.addTargetEvents = _this.addTargetEvents.bind(_this);
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
     _this.removeTargetEvents = _this.removeTargetEvents.bind(_this);
@@ -11293,8 +11267,6 @@ var Tooltip = function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      this.clearHideTimeout();
-      this.clearShowTimeout();
       this.removeTargetEvents();
     }
   }, {
@@ -11383,7 +11355,7 @@ var Tooltip = function (_React$Component) {
   }, {
     key: 'handleDocumentClick',
     value: function handleDocumentClick(e) {
-      if (this._target !== null && (e.target === this._target || this._target.contains(e.target))) {
+      if (e.target === this._target || this._target.contains(e.target)) {
         if (this._hideTimeout) {
           this.clearHideTimeout();
         }
@@ -11411,26 +11383,22 @@ var Tooltip = function (_React$Component) {
               return document.addEventListener(event, _this2.handleDocumentClick, true);
             });
           }
-          if (this._target !== null) {
-            if (triggers.indexOf('hover') > -1) {
-              this._target.addEventListener('mouseover', this.onMouseOverTooltip, true);
-              this._target.addEventListener('mouseout', this.onMouseLeaveTooltip, true);
-            }
-            if (triggers.indexOf('focus') > -1) {
-              this._target.addEventListener('focusin', this.show, true);
-              this._target.addEventListener('focusout', this.hide, true);
-            }
-            this._target.addEventListener('keydown', this.onEscKeyDown, true);
+          if (triggers.indexOf('hover') > -1) {
+            this._target.addEventListener('mouseover', this.onMouseOverTooltip, true);
+            this._target.addEventListener('mouseout', this.onMouseLeaveTooltip, true);
           }
+          if (triggers.indexOf('focus') > -1) {
+            this._target.addEventListener('focusin', this.show, true);
+            this._target.addEventListener('focusout', this.hide, true);
+          }
+          this._target.addEventListener('keydown', this.onEscKeyDown, true);
         }
       } else {
-        if (this._target !== null) {
-          this._target.addEventListener('mouseover', this.onMouseOverTooltip, true);
-          this._target.addEventListener('mouseout', this.onMouseLeaveTooltip, true);
-          this._target.addEventListener('keydown', this.onEscKeyDown, true);
-          this._target.addEventListener('focusin', this.show, true);
-          this._target.addEventListener('focusout', this.hide, true);
-        }
+        this._target.addEventListener('mouseover', this.onMouseOverTooltip, true);
+        this._target.addEventListener('mouseout', this.onMouseLeaveTooltip, true);
+        this._target.addEventListener('keydown', this.onEscKeyDown, true);
+        this._target.addEventListener('focusin', this.show, true);
+        this._target.addEventListener('focusout', this.hide, true);
         ['click', 'touchstart'].forEach(function (event) {
           return document.addEventListener(event, _this2.handleDocumentClick, true);
         });
@@ -11441,13 +11409,12 @@ var Tooltip = function (_React$Component) {
     value: function removeTargetEvents() {
       var _this3 = this;
 
-      if (this._target !== null) {
-        this._target.removeEventListener('mouseover', this.onMouseOverTooltip, true);
-        this._target.removeEventListener('mouseout', this.onMouseLeaveTooltip, true);
-        this._target.addEventListener('keydown', this.onEscKeyDown, true);
-        this._target.addEventListener('focusin', this.show, true);
-        this._target.addEventListener('focusout', this.hide, true);
-      }
+      this._target.removeEventListener('mouseover', this.onMouseOverTooltip, true);
+      this._target.removeEventListener('mouseout', this.onMouseLeaveTooltip, true);
+      this._target.addEventListener('keydown', this.onEscKeyDown, true);
+      this._target.addEventListener('focusin', this.show, true);
+      this._target.addEventListener('focusout', this.hide, true);
+
       ['click', 'touchstart'].forEach(function (event) {
         return document.removeEventListener(event, _this3.handleDocumentClick, true);
       });
@@ -69932,6 +69899,15 @@ var Header = function (_Component) {
                                 { className: 'nav-link btn', onClick: this.props.openLoginForm },
                                 '\u0110\u0103ng nh\u1EADp'
                             )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'a',
+                                { className: 'nav-link btn', onClick: this.props.logout },
+                                'Tho\xE1t'
+                            )
                         )
                     )
                 ),
@@ -69951,7 +69927,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        openLoginForm: Object(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_5__actions__["p" /* showLoginModal */], dispatch)
+        openLoginForm: Object(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_5__actions__["q" /* showLoginModal */], dispatch),
+        logout: Object(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* bindActionCreators */])(__WEBPACK_IMPORTED_MODULE_5__actions__["n" /* logoutApi */], dispatch)
     };
 };
 
@@ -82593,7 +82570,7 @@ function usersReducer() {
         case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["i" /* GET_ALL_USERS */]:
             return _extends({}, state, { users: action.users });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["l" /* OPEN_ADD_MODAL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["m" /* OPEN_ADD_MODAL */]:
             var user = action.user;
             return _extends({}, state, { modalAdd: true, user: user });
 
@@ -82609,13 +82586,13 @@ function usersReducer() {
         case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["h" /* EDIT_USER */]:
             return _extends({}, state);
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["n" /* PAGE_CHANGE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["o" /* PAGE_CHANGE */]:
             return _extends({}, state);
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["p" /* SEARCH_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["q" /* SEARCH_FORM */]:
             return _extends({}, state);
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["m" /* OPEN_LOGIN_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["n" /* OPEN_LOGIN_FORM */]:
             return _extends({}, state, { modalLogin: true });
 
         case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["d" /* CLOSE_LOGIN_FORM */]:
@@ -82624,7 +82601,10 @@ function usersReducer() {
         case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["k" /* LOGIN_FORM */]:
             return _extends({}, state);
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["o" /* RESET_LOGIN_FORM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["p" /* RESET_LOGIN_FORM */]:
+            return _extends({}, state);
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["l" /* LOGOUT_USER */]:
             return _extends({}, state);
 
         default:
@@ -83479,7 +83459,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["d" /* changePageWithSearch */](key, page));
         },
         showAddModal: function showAddModal(user) {
-            dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["o" /* showAddModal */](user));
+            dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["p" /* showAddModal */](user));
         },
         deleteUser: function deleteUser(user) {
             dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["h" /* deleteUserApi */](user));
@@ -84001,7 +83981,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         searchFormApi: function searchFormApi(key) {
-            dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["n" /* searchFormApi */](key));
+            dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["o" /* searchFormApi */](key));
         },
         allUsers: function allUsers() {
             dispatch(__WEBPACK_IMPORTED_MODULE_3__actions_index__["j" /* fetchAllUsersApi */]());

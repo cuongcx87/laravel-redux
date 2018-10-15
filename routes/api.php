@@ -13,28 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', 'UserController@index')->name('index');
+Route::post('/', 'UserController@store')->name('store');
+Route::delete('/{id}', 'UserController@destroy')->name('destroy');
+Route::put('/{id}/edit', 'UserController@update')->name('update');
+Route::get('/user/search/{key}', 'UserController@search')->name('search');
+
+Route::post('/login', 'AuthController@login')->name('login');
+//Route::post('/logout', 'AuthController@logout')->name('logout');
+Route::group([
+
+    'middleware' => 'api',
+    'namespace' => '\App\Http\Controllers'
+
+], function ($router) {
+
+    Route::post('logout', 'AuthController@logout')->name('logout');
+    Route::post('refresh', 'AuthController@refresh')->name('refresh');
+    Route::post('me', 'AuthController@me')->name('me');
+
 });
-
-Route::get('/', 'UserController@index');
-Route::post('/', 'UserController@store');
-Route::delete('/{id}', 'UserController@destroy');
-Route::put('/{id}/edit', 'UserController@update');
-Route::get('/user/search/{key}', 'UserController@search');
-
-//Route::group([
-//
-//    'middleware' => 'api',
-//    'namespace' => 'App\Http\Controllers'
-//
-//], function ($router) {
-//
-//    Route::post('login', 'AuthController@login');
-//    Route::post('logout', 'AuthController@logout');
-//    Route::post('refresh', 'AuthController@refresh');
-//    Route::post('me', 'AuthController@me');
-//
-//});
-
-Route::post('/login', 'AuthController@login');

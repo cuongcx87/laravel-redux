@@ -61,6 +61,9 @@ class Header extends Component {
                         <li className="nav-item">
                             <a className="nav-link btn" onClick={this.props.openLoginForm}>Đăng nhập</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link btn" onClick={this.props.logout}>Thoát</a>
+                        </li>
                     </ul>
                 </div>
                 <LoginForm />
@@ -77,7 +80,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        openLoginForm: bindActionCreators(actions.showLoginModal, dispatch)
+        openLoginForm: bindActionCreators(actions.showLoginModal, dispatch),
+        logout: bindActionCreators(actions.logoutApi, dispatch)
     }
 }
 
