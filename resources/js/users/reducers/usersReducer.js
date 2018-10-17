@@ -17,8 +17,8 @@ const initialState = {
 
 function usersReducer(state = initialState, action) {
     switch (action.type) {
-        case actionTypes.GET_ALL_USERS:
-            return {...state, users: action.users};
+        case actionTypes.GET_ALL_USERS_SUCCESS:
+            return {...state, users: action.users.data};
 
         case actionTypes.OPEN_ADD_MODAL:
             var user = action.user

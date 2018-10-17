@@ -1,5 +1,7 @@
 export const ADD_USER = 'ADD_USER';
-export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_ALL_USERS_REQUEST = 'GET_ALL_USERS_REQUEST';
+export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
+export const GET_ALL_USERS_FAIL = 'GET_ALL_USERS_FAIL';
 export const OPEN_ADD_MODAL = 'OPEN_ADD_MODAL';
 export const CLOSE_ADD_MODAL = 'CLOSE_ADD_MODAL';
 export const DELETE_USER = 'DELETE_USER';
